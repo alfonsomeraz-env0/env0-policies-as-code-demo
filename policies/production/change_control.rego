@@ -51,7 +51,7 @@ deny contains msg if {
 	msg := "[production/freeze] change freeze is active, no production deployments"
 }
 
-# After a human approves, env0 re-evaluates the policy (deployResume). Block the
+# After a human approves, env zero re-evaluates the policy (deployResume). Block the
 # deployment if the requester approved their own change.
 deny contains msg if {
 	is_resume

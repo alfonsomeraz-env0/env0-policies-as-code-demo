@@ -2,12 +2,12 @@ package env0
 
 # Shared helpers for the baseline approval policy.
 #
-# env0 loads every .rego file in a policy folder into one `package env0`, so
+# env zero loads every .rego file in a policy folder into one `package env0`, so
 # rules in the other files of this folder can use anything defined here.
 #
 # The `future.keywords` imports are deliberate: they let the same files parse on
-# older OPA builds (the pr-label-approval-policy demo notes env0 runs 0.46.1)
-# and on OPA 1.x. Pin a version with the ENV0_OPA_VERSION env var if needed.
+# older OPA builds (CI runs 0.46.1) and on OPA 1.x. Pin the version env zero
+# uses with the ENV0_OPA_VERSION environment variable if you need to.
 
 import future.keywords.contains
 import future.keywords.if

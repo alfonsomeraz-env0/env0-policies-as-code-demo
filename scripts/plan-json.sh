@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Render a scenario's plan as JSON, the same shape env0 hands to approval policies.
+# Render a scenario's plan as JSON, the same shape env zero hands to approval policies.
 #
 #   scripts/plan-json.sh 02-public-bucket > /tmp/plan.json
 #

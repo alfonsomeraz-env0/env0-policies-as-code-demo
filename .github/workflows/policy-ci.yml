@@ -1,7 +1,7 @@
 name: policy-ci
 
 # Policies are code: they get a PR, a formatter, a type check and unit tests
-# before env0 ever reads them from main.
+# before env zero ever reads them from main.
 
 on:
   pull_request:
@@ -18,8 +18,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # 0.46.1 is the OPA version the pr-label-approval-policy demo notes env0
-        # runs. Pin ENV0_OPA_VERSION in env0 and here to the same value.
+        # Test an older and the newest OPA so the policies parse on either. Pin
+        # ENV0_OPA_VERSION in env zero to a version listed here.
         opa: ["0.46.1", "latest"]
     steps:
       - uses: actions/checkout@v4
@@ -28,6 +28,7 @@ jobs:
           version: ${{ matrix.opa }}
       - run: make check
       - run: make test
+      - run: make examples
       # Formatting rules change between OPA releases, so only gate on latest.
       - if: matrix.opa == 'latest'
         run: make fmt-check

@@ -1,6 +1,6 @@
 package env0
 
-# Cost guardrails, driven by env0 cost estimation (input.costEstimation).
+# Cost guardrails, driven by env zero cost estimation (input.costEstimation).
 # Turn on "Include cost estimation" in the project policy or these rules are
 # skipped (and a warning says so).
 #
@@ -26,7 +26,7 @@ pending_diff := input.policyData.cost.pending_diff
 
 deny_total := input.policyData.cost.deny_total
 
-# env0 may send these as numbers or strings, so normalise.
+# env zero may send these as numbers or strings, so normalise.
 monthly_diff := to_number(input.costEstimation.monthlyCostDiff)
 
 monthly_total := to_number(input.costEstimation.totalMonthlyCost)

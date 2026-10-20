@@ -90,7 +90,8 @@ resource "aws_s3_bucket" "logs" {
 }
 
 # ---------------------------------------------------------------------------
-# Network. Policy: SSH/RDP never open to the internet (HTTPS is fine).
+# Network. Policy: only web ports (80, 443) may face the internet. SSH, RDP and
+# databases must stay on private ranges.
 # ---------------------------------------------------------------------------
 
 resource "aws_security_group" "app" {
@@ -116,6 +117,22 @@ resource "aws_vpc_security_group_ingress_rule" "https" {
   ip_protocol       = "tcp"
   from_port         = 443
   to_port           = 443
+}
+
+resource "aws_security_group" "db" {
+  name_prefix = "${local.base_name}-db-"
+  description = "Policies as code demo database security group"
+  vpc_id      = data.aws_vpc.default.id
+  tags        = local.tags
+}
+
+resource "aws_vpc_security_group_ingress_rule" "postgres" {
+  security_group_id = aws_security_group.db.id
+  description       = "PostgreSQL"
+  cidr_ipv4         = var.db_cidr
+  ip_protocol       = "tcp"
+  from_port         = 5432
+  to_port           = 5432
 }
 
 resource "aws_vpc_security_group_egress_rule" "all" {

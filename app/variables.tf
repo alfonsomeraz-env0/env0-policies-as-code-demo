@@ -58,9 +58,15 @@ variable "create_logs_bucket" {
 }
 
 variable "ssh_cidr" {
-  description = "CIDR allowed to reach SSH. 0.0.0.0/0 trips baseline/network"
+  description = "CIDR allowed to reach SSH (22). 0.0.0.0/0 trips baseline/network"
   type        = string
   default     = "10.0.0.0/8"
+}
+
+variable "db_cidr" {
+  description = "CIDR allowed to reach PostgreSQL (5432). 0.0.0.0/0 trips baseline/network"
+  type        = string
+  default     = "10.0.0.0/16"
 }
 
 variable "instance_type" {

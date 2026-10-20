@@ -1,6 +1,7 @@
 {
   "required_tags": ["Owner", "CostCenter", "Environment"],
   "allowed_instance_types": ["t3.micro", "t3.small", "t3.medium", "t3.large"],
+  "world_open_ports": [80, 443],
   "cost": {
     "warn_diff": 25,
     "pending_diff": 100,

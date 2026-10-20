@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Evaluate an approval policy folder against a plan JSON, locally, with the same
-# input shape env0 builds (plan, deploymentRequest, policyData, costEstimation).
+# input shape env zero builds (plan, deploymentRequest, policyData, costEstimation).
 #
 #   scripts/plan-json.sh 02-public-bucket > /tmp/plan.json
 #   scripts/eval-plan.sh baseline /tmp/plan.json

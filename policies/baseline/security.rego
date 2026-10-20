@@ -1,6 +1,6 @@
 package env0
 
-# Baseline security guardrails: public S3, world-open admin ports, hardened EC2.
+# Baseline security guardrails: public S3, ports open to the internet, hardened EC2.
 # Every violation is a `deny`, which cancels the deployment before apply.
 
 import future.keywords.contains
@@ -31,23 +31,41 @@ deny contains msg if {
 }
 
 # ---------------------------------------------------------------------------
-# Network: SSH (22) and RDP (3389) must not be reachable from the internet
+# Network: only web ports may face the internet. SSH, RDP, databases and
+# everything else must be limited to private ranges. The allowed ports come from
+# policyData (`world_open_ports`) with the default below.
 # ---------------------------------------------------------------------------
 
 world_cidrs := {"0.0.0.0/0", "::/0"}
 
-admin_ports := {22, 3389}
+default world_open_ports := [80, 443]
 
-# All-protocol rules expose every port.
-reaches_admin_port(protocol, _, _) if {
+world_open_ports := input.policyData.world_open_ports
+
+# True when the rule exposes at least one port outside world_open_ports.
+# Protocol "-1" means every port.
+exposes_restricted_port(protocol, _, _) if {
 	protocol == "-1"
 }
 
-reaches_admin_port(protocol, from_port, to_port) if {
-	protocol in {"tcp", "6"}
-	some port in admin_ports
-	from_port <= port
-	port <= to_port
+exposes_restricted_port(protocol, from_port, to_port) if {
+	protocol in {"tcp", "udp", "6", "17"}
+	some port in numbers.range(from_port, to_port)
+	not port in world_open_ports
+}
+
+port_label(rule) := "all ports" if {
+	rule.protocol == "-1"
+}
+
+port_label(rule) := sprintf("port %v", [rule.from]) if {
+	rule.protocol != "-1"
+	rule.from == rule.to
+}
+
+port_label(rule) := sprintf("ports %v-%v", [rule.from, rule.to]) if {
+	rule.protocol != "-1"
+	rule.from != rule.to
 }
 
 # Normalised view of every ingress rule in the plan, whatever resource type
@@ -96,8 +114,11 @@ deny contains msg if {
 	some rule in ingress_rules
 	some cidr in rule.cidrs
 	cidr in world_cidrs
-	reaches_admin_port(rule.protocol, rule.from, rule.to)
-	msg := sprintf("[baseline/network] %s exposes SSH/RDP to %s", [rule.address, cidr])
+	exposes_restricted_port(rule.protocol, rule.from, rule.to)
+	msg := sprintf(
+		"[baseline/network] %s exposes %s to %s (only ports %s may face the internet)",
+		[rule.address, port_label(rule), cidr, concat(", ", [sprintf("%v", [p]) | some p in world_open_ports])],
+	)
 }
 
 # ---------------------------------------------------------------------------

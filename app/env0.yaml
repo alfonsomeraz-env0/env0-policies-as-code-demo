@@ -13,7 +13,7 @@ version: 2
 # before apply. Writes to the working directory (relative path) because /tmp
 # is not shared with the policy-check step.
 #
-# Optional env0 variables:
+# Optional env zero variables:
 #   POLICY_DATA_URL    - https URL returning the policy data JSON
 #   POLICY_DATA_TOKEN  - bearer token for that URL (mark Sensitive)
 #   POLICY_CHANGE_FREEZE - "true" forces change_freeze=true (handy live demo toggle)

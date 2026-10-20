@@ -2,21 +2,25 @@ POLICIES := baseline production
 OPA      ?= opa
 TF       ?= terraform
 
-.PHONY: help test fmt fmt-check check ci validate
+.PHONY: help test examples fmt fmt-check check ci validate
 
 help:
 	@echo "make test       run the Rego unit tests for every policy folder"
+	@echo "make examples   run the sample plans through the policies and check each outcome"
 	@echo "make check      type-check the policies"
 	@echo "make fmt        format the policies and tests in place"
-	@echo "make ci         fmt-check + check + test (what CI runs)"
+	@echo "make ci         fmt-check + check + test + examples (what CI runs)"
 	@echo "make validate   terraform fmt/validate for app/ and control-plane/"
 
-# Each folder is a separate env0 policy, so it is tested on its own.
+# Each folder is a separate env zero policy, so it is tested on its own.
 test:
 	@for p in $(POLICIES); do \
 		echo "== $$p"; \
 		$(OPA) test policies/$$p tests/$$p -v || exit 1; \
 	done
+
+examples:
+	scripts/run-examples.sh
 
 check:
 	@for p in $(POLICIES); do $(OPA) check policies/$$p tests/$$p || exit 1; done
@@ -27,7 +31,7 @@ fmt:
 fmt-check:
 	$(OPA) fmt --fail -l policies tests
 
-ci: fmt-check check test
+ci: fmt-check check test examples
 
 validate:
 	$(TF) fmt -check -recursive app control-plane

@@ -7,6 +7,8 @@
 resource "env0_project" "parent" {
   name        = var.name_prefix
   description = "Policies as code demo. Approval policies are managed from the policies/ folder of the demo repo."
+
+  parent_project_id = var.parent_project_id
 }
 
 resource "env0_project" "dev" {
@@ -78,7 +80,7 @@ resource "env0_template_project_assignment" "prod" {
   project_id  = env0_project.prod.id
 }
 
-# Relative path: env0 shares the working directory between the plan step and the
+# Relative path: env zero shares the working directory between the plan step and the
 # policy check, but not /tmp.
 resource "env0_configuration_variable" "policy_data_path" {
   name        = "ENV0_POLICY_DATA_PATH"

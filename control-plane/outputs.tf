@@ -1,5 +1,5 @@
 output "project_ids" {
-  description = "env0 project ids"
+  description = "env zero project ids"
   value = {
     parent = env0_project.parent.id
     dev    = env0_project.dev.id
@@ -8,7 +8,7 @@ output "project_ids" {
 }
 
 output "approval_policy_ids" {
-  description = "env0 approval policy ids"
+  description = "env zero approval policy ids"
   value = {
     baseline   = env0_approval_policy.baseline.id
     production = env0_approval_policy.production.id
@@ -16,6 +16,6 @@ output "approval_policy_ids" {
 }
 
 output "template_id" {
-  description = "env0 template id for the demo app"
+  description = "env zero template id for the demo app"
   value       = env0_template.app.id
 }

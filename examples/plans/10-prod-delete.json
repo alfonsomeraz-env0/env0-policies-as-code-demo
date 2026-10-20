@@ -1,0 +1,446 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.9.0",
+  "resource_changes": [
+    {
+      "address": "aws_s3_bucket.app",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "app",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "bucket": "pac-demo-dev-app-123456789012",
+          "tags": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          },
+          "tags_all": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          }
+        },
+        "after": {
+          "bucket": "pac-demo-dev-app-123456789012",
+          "tags": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          },
+          "tags_all": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          }
+        }
+      }
+    },
+    {
+      "address": "aws_s3_bucket_versioning.app",
+      "mode": "managed",
+      "type": "aws_s3_bucket_versioning",
+      "name": "app",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "versioning_configuration": [
+            {
+              "status": "Enabled"
+            }
+          ]
+        },
+        "after": {
+          "versioning_configuration": [
+            {
+              "status": "Enabled"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "aws_s3_bucket_public_access_block.app",
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "app",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "block_public_acls": true,
+          "block_public_policy": true,
+          "ignore_public_acls": true,
+          "restrict_public_buckets": true
+        },
+        "after": {
+          "block_public_acls": true,
+          "block_public_policy": true,
+          "ignore_public_acls": true,
+          "restrict_public_buckets": true
+        }
+      }
+    },
+    {
+      "address": "aws_s3_bucket_ownership_controls.app",
+      "mode": "managed",
+      "type": "aws_s3_bucket_ownership_controls",
+      "name": "app",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "rule": [
+            {
+              "object_ownership": "BucketOwnerPreferred"
+            }
+          ]
+        },
+        "after": {
+          "rule": [
+            {
+              "object_ownership": "BucketOwnerPreferred"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "aws_s3_bucket_acl.app",
+      "mode": "managed",
+      "type": "aws_s3_bucket_acl",
+      "name": "app",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "acl": "private"
+        },
+        "after": {
+          "acl": "private"
+        }
+      }
+    },
+    {
+      "address": "aws_s3_bucket.logs[0]",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "logs",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "delete"
+        ],
+        "before": {
+          "bucket": "pac-demo-dev-logs-123456789012",
+          "tags": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          },
+          "tags_all": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          }
+        },
+        "after": null
+      },
+      "index": 0
+    },
+    {
+      "address": "aws_security_group.app",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "app",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "description": "Policies as code demo security group",
+          "tags": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          },
+          "tags_all": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          }
+        },
+        "after": {
+          "description": "Policies as code demo security group",
+          "tags": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          },
+          "tags_all": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          }
+        }
+      }
+    },
+    {
+      "address": "aws_vpc_security_group_ingress_rule.ssh",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "name": "ssh",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "cidr_ipv4": "10.0.0.0/8",
+          "cidr_ipv6": null,
+          "ip_protocol": "tcp",
+          "from_port": 22,
+          "to_port": 22
+        },
+        "after": {
+          "cidr_ipv4": "10.0.0.0/8",
+          "cidr_ipv6": null,
+          "ip_protocol": "tcp",
+          "from_port": 22,
+          "to_port": 22
+        }
+      }
+    },
+    {
+      "address": "aws_vpc_security_group_ingress_rule.https",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "name": "https",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "cidr_ipv4": "0.0.0.0/0",
+          "cidr_ipv6": null,
+          "ip_protocol": "tcp",
+          "from_port": 443,
+          "to_port": 443
+        },
+        "after": {
+          "cidr_ipv4": "0.0.0.0/0",
+          "cidr_ipv6": null,
+          "ip_protocol": "tcp",
+          "from_port": 443,
+          "to_port": 443
+        }
+      }
+    },
+    {
+      "address": "aws_security_group.db",
+      "mode": "managed",
+      "type": "aws_security_group",
+      "name": "db",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "description": "Policies as code demo database security group",
+          "tags": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          },
+          "tags_all": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          }
+        },
+        "after": {
+          "description": "Policies as code demo database security group",
+          "tags": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          },
+          "tags_all": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev"
+          }
+        }
+      }
+    },
+    {
+      "address": "aws_vpc_security_group_ingress_rule.postgres",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_ingress_rule",
+      "name": "postgres",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "cidr_ipv4": "10.0.0.0/16",
+          "cidr_ipv6": null,
+          "ip_protocol": "tcp",
+          "from_port": 5432,
+          "to_port": 5432
+        },
+        "after": {
+          "cidr_ipv4": "10.0.0.0/16",
+          "cidr_ipv6": null,
+          "ip_protocol": "tcp",
+          "from_port": 5432,
+          "to_port": 5432
+        }
+      }
+    },
+    {
+      "address": "aws_vpc_security_group_egress_rule.all",
+      "mode": "managed",
+      "type": "aws_vpc_security_group_egress_rule",
+      "name": "all",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "cidr_ipv4": "0.0.0.0/0",
+          "cidr_ipv6": null,
+          "ip_protocol": "-1"
+        },
+        "after": {
+          "cidr_ipv4": "0.0.0.0/0",
+          "cidr_ipv6": null,
+          "ip_protocol": "-1"
+        }
+      }
+    },
+    {
+      "address": "aws_instance.app[0]",
+      "mode": "managed",
+      "type": "aws_instance",
+      "name": "app",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "change": {
+        "actions": [
+          "no-op"
+        ],
+        "before": {
+          "instance_type": "t3.micro",
+          "metadata_options": [
+            {
+              "http_endpoint": "enabled",
+              "http_tokens": "required"
+            }
+          ],
+          "root_block_device": [
+            {
+              "encrypted": true,
+              "volume_type": "gp3",
+              "volume_size": 8
+            }
+          ],
+          "tags": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev",
+            "Name": "pac-demo-dev-app-0"
+          },
+          "tags_all": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev",
+            "Name": "pac-demo-dev-app-0"
+          }
+        },
+        "after": {
+          "instance_type": "t3.micro",
+          "metadata_options": [
+            {
+              "http_endpoint": "enabled",
+              "http_tokens": "required"
+            }
+          ],
+          "root_block_device": [
+            {
+              "encrypted": true,
+              "volume_type": "gp3",
+              "volume_size": 8
+            }
+          ],
+          "tags": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev",
+            "Name": "pac-demo-dev-app-0"
+          },
+          "tags_all": {
+            "Demo": "policies-as-code",
+            "ManagedBy": "env0",
+            "Owner": "platform-team",
+            "CostCenter": "cc-1234",
+            "Environment": "dev",
+            "Name": "pac-demo-dev-app-0"
+          }
+        }
+      },
+      "index": 0
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 package env0
 
-# env0 holds for approval when no rule fires, so every policy folder must say
+# env zero holds for approval when no rule fires, so every policy folder must say
 # `allow` explicitly for its clean path. Results are merged strictest-first:
 # deny > pending > warn > allow.
 

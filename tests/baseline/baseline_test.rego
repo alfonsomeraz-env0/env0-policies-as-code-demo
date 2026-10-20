@@ -143,6 +143,74 @@ test_ipv6_world_ssh_denied if {
 	count(env0.deny) == 1 with input as i
 }
 
+test_database_port_open_to_world_denied if {
+	i := plan_input([ingress_rule("0.0.0.0/0", "tcp", 5432, 5432)])
+	result := env0.deny with input as i
+	count(result) == 1
+	"[baseline/network] aws_vpc_security_group_ingress_rule.x exposes port 5432 to 0.0.0.0/0 (only ports 80, 443 may face the internet)" in result
+}
+
+test_database_port_open_to_private_cidr_allowed if {
+	i := plan_input([ingress_rule("10.0.0.0/16", "tcp", 5432, 5432)])
+	count(env0.deny) == 0 with input as i
+}
+
+test_http_open_to_world_allowed if {
+	i := plan_input([ingress_rule("0.0.0.0/0", "tcp", 80, 80)])
+	count(env0.deny) == 0 with input as i
+}
+
+test_range_spanning_web_ports_denied if {
+	i := plan_input([ingress_rule("0.0.0.0/0", "tcp", 80, 443)])
+	result := env0.deny with input as i
+	count(result) == 1
+	has_msg(result, "[baseline/network] aws_vpc_security_group_ingress_rule.x exposes ports 80-443")
+}
+
+test_udp_open_to_world_denied if {
+	i := plan_input([ingress_rule("0.0.0.0/0", "udp", 53, 53)])
+	count(env0.deny) == 1 with input as i
+}
+
+test_icmp_open_to_world_allowed if {
+	i := plan_input([ingress_rule("0.0.0.0/0", "icmp", -1, -1)])
+	count(env0.deny) == 0 with input as i
+}
+
+test_world_open_ports_come_from_policy_data if {
+	i := object.union(
+		plan_input([ingress_rule("0.0.0.0/0", "tcp", 8443, 8443)]),
+		{"policyData": {"world_open_ports": [443, 8443]}},
+	)
+	count(env0.deny) == 0 with input as i
+}
+
+# The cold-open slide: an AI assistant widens a prod database security group.
+test_cold_open_prod_db_opened_to_world_denied if {
+	i := plan_input([{
+		"address": "aws_security_group.prod_db",
+		"mode": "managed",
+		"type": "aws_security_group",
+		"change": {
+			"actions": ["update"],
+			"after": {
+				"tags": good_tags,
+				"ingress": [{
+					"cidr_blocks": ["0.0.0.0/0"],
+					"ipv6_cidr_blocks": [],
+					"protocol": "tcp",
+					"from_port": 5432,
+					"to_port": 5432,
+				}],
+			},
+		},
+	}])
+	result := env0.deny with input as i
+	count(result) == 1
+	has_msg(result, "[baseline/network] aws_security_group.prod_db exposes port 5432 to 0.0.0.0/0")
+	count(env0.allow) == 0 with input as i
+}
+
 test_inline_security_group_ssh_denied if {
 	i := plan_input([create("aws_security_group.app", "aws_security_group", {
 		"tags": good_tags,
