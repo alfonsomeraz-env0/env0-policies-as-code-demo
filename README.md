@@ -139,3 +139,7 @@ COST_DIFF=120 COST_TOTAL=300 scripts/eval-plan.sh baseline /tmp/plan.json
 ## Not covered here
 
 Third-party scanners (Checkov, Trivy) as custom flows, PR-label-driven approvals, drift detection and the audit trail. Org-wide TTL policy (`env0_organization_policy`) is left out so the demo cannot change tenant-wide settings.
+
+## License
+
+[MIT](LICENSE)
