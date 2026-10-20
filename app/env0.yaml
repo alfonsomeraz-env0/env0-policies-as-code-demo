@@ -1,0 +1,44 @@
+version: 2
+
+# ---------------------------------------------------------------------------
+# Custom flow: optionally refresh policy_data.json from a central source.
+#
+# The approval policy reads policy_data.json through ENV0_POLICY_DATA_PATH
+# (set on the template by control-plane/). Committing the allowlists next to
+# the app means app teams can edit their own guardrails, so in a real setup
+# point POLICY_DATA_URL at a file owned by the platform team and this step
+# overwrites the local copy before the policy runs.
+#
+# Runs in terraformPlan.after because policies are evaluated after plan and
+# before apply. Writes to the working directory (relative path) because /tmp
+# is not shared with the policy-check step.
+#
+# Optional env0 variables:
+#   POLICY_DATA_URL    - https URL returning the policy data JSON
+#   POLICY_DATA_TOKEN  - bearer token for that URL (mark Sensitive)
+#   POLICY_CHANGE_FREEZE - "true" forces change_freeze=true (handy live demo toggle)
+# ---------------------------------------------------------------------------
+deploy:
+  steps:
+    terraformPlan:
+      after:
+        - name: "Refresh policy data"
+          run: |
+            set -e
+            OUT="${ENV0_POLICY_DATA_PATH:-policy_data.json}"
+
+            if [ -n "$POLICY_DATA_URL" ]; then
+              echo "Fetching policy data from $POLICY_DATA_URL"
+              curl -fsS ${POLICY_DATA_TOKEN:+-H "Authorization: Bearer $POLICY_DATA_TOKEN"} "$POLICY_DATA_URL" -o "$OUT.tmp"
+              jq -e . "$OUT.tmp" > /dev/null
+              mv "$OUT.tmp" "$OUT"
+            else
+              echo "POLICY_DATA_URL not set, using the committed $OUT"
+            fi
+
+            if [ "$POLICY_CHANGE_FREEZE" = "true" ]; then
+              echo "POLICY_CHANGE_FREEZE=true, setting change_freeze in $OUT"
+              jq '.change_freeze = true' "$OUT" > "$OUT.tmp" && mv "$OUT.tmp" "$OUT"
+            fi
+
+            cat "$OUT"

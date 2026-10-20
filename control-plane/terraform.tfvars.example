@@ -1,0 +1,8 @@
+repo_url      = "https://github.com/YOUR-ORG/env0-policies-as-code-demo"
+repo_revision = "main"
+
+# Needed for private repositories. Find it in env0: Organization Settings > VCS.
+# vcs_connection_id = "00000000-0000-0000-0000-000000000000"
+
+# Optional: attach existing AWS credentials to both projects.
+# cloud_credentials_id = "00000000-0000-0000-0000-000000000000"
