@@ -68,6 +68,10 @@ Strictest result wins: `deny` > `pending` > `warn` > `allow`. env zero holds for
 
 ## Run it in env zero
 
+> **Cost and safety:** the scenarios deploy real AWS resources (EC2 instances and S3 buckets) in your account.
+> - Assign the policies before you deploy scenarios `02` to `07`. Without them, `02-public-bucket` creates a genuinely public S3 bucket.
+> - Set a TTL (`--ttl 24h`) or destroy each environment when you finish.
+
 1. **Use this repo as is** (it is public, so env zero needs no VCS connection), or **fork it** to change the policies and point `repo_url` at your fork.
 2. **Create the env zero objects:**
 
